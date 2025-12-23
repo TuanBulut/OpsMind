@@ -49,15 +49,13 @@ graph TD
  ```
 
 ```mermaid
-graph TD
-    User[User/Script] -->|POST /report_incident| API[FastAPI]
-    API -->|Insert Ticket| DB[(MySQL Database)]
-    Worker[AI Worker] -->|Polls for New Tickets| DB
-    Worker -->|Request Fix| Ollama[Ollama LLM]
-    Ollama -->|Returns Command| Worker
-    Worker -->|Updates Ticket| DB
-    Dashboard[Streamlit UI] -->|Reads Status| DB
-    Dashboard -->|Approve & Execute| API
+stateDiagram-v2
+    [*] --> QUEUED: Incident Reported
+    QUEUED --> PROCESSING: Worker Picks Up
+    PROCESSING --> AWAITING_APPROVAL: AI Generates Fix
+    AWAITING_APPROVAL --> EXECUTED: Admin Clicks "Approve"
+    EXECUTED --> COMPLETED: System Restored
+    COMPLETED --> [*]
 ```
 
 ### Data Flow
