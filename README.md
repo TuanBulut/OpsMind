@@ -48,6 +48,17 @@ graph TD
     Dashboard -->|Approve & Execute| API
  ```
 
+```mermaid
+graph TD
+    User[User/Script] -->|POST /report_incident| API[FastAPI]
+    API -->|Insert Ticket| DB[(MySQL Database)]
+    Worker[AI Worker] -->|Polls for New Tickets| DB
+    Worker -->|Request Fix| Ollama[Ollama LLM]
+    Ollama -->|Returns Command| Worker
+    Worker -->|Updates Ticket| DB
+    Dashboard[Streamlit UI] -->|Reads Status| DB
+    Dashboard -->|Approve & Execute| API
+```
 
 ### Data Flow
 
