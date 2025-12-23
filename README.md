@@ -102,6 +102,12 @@ Open your web browser and navigate to **`http://localhost:8501`**. The dashboard
 
 ### 2. Report an Incident
 
+**Run the Simulation Script (Recommended)**
+I have included a Python script to simulate a server failure automatically.
+```bash
+python agent_sim.py
+```
+
 To simulate an incident, use `curl` or any API client to send a POST request to the `/report_incident` endpoint.
 
 **Example: High Disk Usage**
