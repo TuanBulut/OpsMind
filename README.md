@@ -5,6 +5,9 @@
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-00000F?style=for-the-badge&logo=mysql&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
+![Git](https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white)
+![License](https://img.shields.io/github/license/TuanBulut/OpsMind?style=for-the-badge)
 
 [![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/TuanBulut/OpsMind)
 
@@ -32,6 +35,18 @@ The system is composed of four main services orchestrated with Docker Compose:
 *   **AI Worker (`worker`)**: A Python background process that continuously polls the database for new incidents. When a new ticket is found, it queries a local Ollama instance for a command-line fix and updates the ticket for human review.
 *   **Dashboard (`dashboard`)**: A Streamlit web application that provides a real-time view of incidents awaiting approval. Operators can review the error details, see the AI-suggested fix, and approve it with a single click.
 *   **Database (`db`)**: A MySQL instance used to store all incident data, including status, error messages, and AI-generated solutions.
+
+```
+graph TD
+    User[User/Script] -->|POST /report_incident| API[FastAPI]
+    API -->|Insert Ticket| DB[(MySQL Database)]
+    Worker[AI Worker] -->|Polls for New Tickets| DB
+    Worker -->|Request Fix| Ollama[Ollama LLM]
+    Ollama -->|Returns Command| Worker
+    Worker -->|Updates Ticket| DB
+    Dashboard[Streamlit UI] -->|Reads Status| DB
+    Dashboard -->|Approve & Execute| API
+```
 
 ### Data Flow
 
