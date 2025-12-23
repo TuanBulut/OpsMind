@@ -36,7 +36,7 @@ The system is composed of four main services orchestrated with Docker Compose:
 *   **Dashboard (`dashboard`)**: A Streamlit web application that provides a real-time view of incidents awaiting approval. Operators can review the error details, see the AI-suggested fix, and approve it with a single click.
 *   **Database (`db`)**: A MySQL instance used to store all incident data, including status, error messages, and AI-generated solutions.
 
-```
+```mermaid
 graph TD
     User[User/Script] -->|POST /report_incident| API[FastAPI]
     API -->|Insert Ticket| DB[(MySQL Database)]
@@ -46,7 +46,6 @@ graph TD
     Worker -->|Updates Ticket| DB
     Dashboard[Streamlit UI] -->|Reads Status| DB
     Dashboard -->|Approve & Execute| API
-```
 
 ### Data Flow
 
