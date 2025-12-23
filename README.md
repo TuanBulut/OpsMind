@@ -46,6 +46,8 @@ graph TD
     Worker -->|Updates Ticket| DB
     Dashboard[Streamlit UI] -->|Reads Status| DB
     Dashboard -->|Approve & Execute| API
+ ```
+
 
 ### Data Flow
 
