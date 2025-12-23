@@ -1,0 +1,18 @@
+# Python junk
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment variables (Safety first!)
+.env
+
+# Docker data (Don't upload your database files!)
+db/data/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Virtual environments
+venv/
+env/

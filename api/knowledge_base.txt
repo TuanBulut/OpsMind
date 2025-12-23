@@ -1,0 +1,20 @@
+--- OPSMIND COMPANY RUNBOOK ---
+
+1. IF error is "Disk usage at 99%" OR "No space left on device":
+   ACTION: CLEANUP. 
+   COMMAND: sudo rm -rf /var/log/*.log
+   NOTE: Only delete logs, never data.
+
+2. IF error is "MySQL Connection refused" OR "Port 3306 unavailable":
+   ACTION: RESTART. 
+   COMMAND: sudo systemctl restart mysql
+   NOTE: Wait 5 seconds after restart to verify.
+
+3. IF error contains "High CPU usage":
+   ACTION: KILL PROCESS.
+   COMMAND: top -b -n 1 | head -n 5
+   NOTE: Diagnose first before killing.
+
+4. GENERAL RULE:
+   Always provide the command in raw text format.
+   Do not explain "Why", just give the command.

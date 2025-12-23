@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: opsmind_db
+    environment:
+      MYSQL_ROOT_PASSWORD: TuanBulut2019
+      MYSQL_DATABASE: IT_Support_Bot
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  api:
+    build: ./api
+    container_name: opsmind_api
+    ports:
+      - "5000:5000"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      DB_HOST: mysql
+
+  worker:
+    build: ./worker
+    container_name: opsmind_worker
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      DB_HOST: mysql
+      OLLAMA_HOST: http://host.docker.internal:11434
+
+  dashboard:
+    build: ./dashboard
+    container_name: opsmind_dashboard
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api
+    environment:
+      API_URL: http://api:5000
