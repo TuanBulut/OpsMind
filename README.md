@@ -50,10 +50,11 @@ graph TD
 
 ```mermaid
 stateDiagram-v2
+    direction LR
     [*] --> QUEUED: Incident Reported
     QUEUED --> PROCESSING: Worker Picks Up
-    PROCESSING --> AWAITING_APPROVAL: AI Generates Fix
-    AWAITING_APPROVAL --> EXECUTED: Admin Clicks "Approve"
+    PROCESSING --> AWAITING_APPROVAL: AI Fix
+    AWAITING_APPROVAL --> EXECUTED: Admin Approves
     EXECUTED --> COMPLETED: System Restored
     COMPLETED --> [*]
 ```
